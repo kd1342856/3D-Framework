@@ -14,7 +14,7 @@ namespace EngineCore {
 		void Shutdown();     // 終了処理
 		void Update();       // 毎フレーム更新
 		void Draw();         // 毎フレーム描画
-		//void Release();
+		void Release();
 
 	private:
 		Engine(){}

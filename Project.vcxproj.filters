@@ -91,6 +91,15 @@
     <Filter Include="Src\Application\Engine\System">
       <UniqueIdentifier>{8d87cd52-55c0-4ecc-95b3-7b6f4fb86a99}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Engine\Component">
+      <UniqueIdentifier>{915e0173-634c-4c7b-bff5-d11be40c999c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Engine\Component\Components">
+      <UniqueIdentifier>{31a93f25-9aeb-4f55-bc21-3ee94be9195e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Engine\Manager">
+      <UniqueIdentifier>{86cd0b4f-952b-4d11-8563-9c1c343af848}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -285,6 +294,27 @@
     <ClInclude Include="Src\Application\Engine\System\Time.h">
       <Filter>Src\Application\Engine\System</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Engine\Compornent\Entity.h">
+      <Filter>Src\Application\Engine\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Engine\Compornent\Component.h">
+      <Filter>Src\Application\Engine\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Engine\Compornent\Components\TransformComponent.h">
+      <Filter>Src\Application\Engine\Component\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Engine\Compornent\Components\RenderComponents.h">
+      <Filter>Src\Application\Engine\Component\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Engine\Compornent\Components\ColliderComponent.h">
+      <Filter>Src\Application\Engine\Component\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Engine\Manager\ImGuiManager.h">
+      <Filter>Src\Application\Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Engine\Manager\EntityManager.h">
+      <Filter>Src\Application\Engine\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -448,6 +478,24 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Engine\System\Logger.cpp">
       <Filter>Src\Application\Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Engine\Compornent\Entity.cpp">
+      <Filter>Src\Application\Engine\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Engine\Compornent\Components\TransformComponent.cpp">
+      <Filter>Src\Application\Engine\Component\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Engine\Compornent\Components\ColliderComponent.cpp">
+      <Filter>Src\Application\Engine\Component\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Engine\Compornent\Components\RenderComponent.cpp">
+      <Filter>Src\Application\Engine\Component\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Engine\Manager\ImGuiManager.cpp">
+      <Filter>Src\Application\Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Engine\Manager\EntityManager.cpp">
+      <Filter>Src\Application\Engine\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

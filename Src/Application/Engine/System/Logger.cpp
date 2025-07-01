@@ -14,45 +14,53 @@ void EngineCore::Logger::Error(const std::string& msg)
 
 void EngineCore::Logger::DrawImGui()
 {
-	std::lock_guard<std::mutex> lock(s_mutex);
-	if (ImGui::BeginChild("Log Window"))
-	{
-		if (ImGui::BeginTabBar("LogTabs"))
-		{
-			std::set<std::string> categories;
-			for (const auto& log : s_logs)
-			{
-				categories.insert(log.category);
-			}
-			//	表示を許可するカテゴリ
-			static std::set<std::string> enabledCategories = { "Error", "System", "Task" };
-			
-			for (const auto& cat : categories)
-			{
-				if (enabledCategories.count(cat) == 0) continue; // フィルタに引っかかったらスキップ
 
-				if (ImGui::BeginTabItem(cat.c_str()))
-				{
-					if (ImGui::BeginChild((cat + "_scroll").c_str(), ImVec2(0, 0), true))
-					{
-						for (const auto& log : s_logs)
-						{
-							if (log.category == cat)
-							{
-								ImGui::TextWrapped("%s", log.message.c_str());
-							}
-						}
-						ImGui::EndTabItem();
-					}
-					ImGui::EndChild();
-				}
-			}
-			ImGui::EndTabBar();
-		}
-		if (ImGui::Button("Clear"))
-		{
-			s_logs.clear();
-		}
+	std::vector<LogEntry>logsCopy;
+	{
+		std::lock_guard<std::mutex> lock(s_mutex);
+		logsCopy = s_logs;
 	}
-	ImGui::End();
+	{
+		if (ImGui::BeginChild("Log Window"))
+		{
+			if (ImGui::BeginTabBar("LogTabs"))
+			{
+				std::set<std::string> categories;
+				for (const auto& log : logsCopy)
+				{
+					categories.insert(log.category);
+				}
+				//	表示を許可するカテゴリ
+				static std::set<std::string> enabledCategories = { "Error", "System", "Task" };
+
+				for (const auto& cat : categories)
+				{
+					if (enabledCategories.count(cat) == 0) continue; // フィルタに引っかかったらスキップ
+
+					if (ImGui::BeginTabItem(cat.c_str()))
+					{
+						if (ImGui::BeginChild((cat + "_scroll").c_str(), ImVec2(0, 0), true))
+						{
+							for (const auto& log : logsCopy)
+							{
+								if (log.category == cat)
+								{
+									ImGui::TextWrapped("%s", log.message.c_str());
+								}
+							}
+							ImGui::EndTabItem();
+						}
+						ImGui::EndChild();
+					}
+				}
+				ImGui::EndTabBar();
+			}
+			if (ImGui::Button("Clear"))
+			{
+				std::lock_guard<std::mutex>lock(s_mutex);
+				s_logs.clear();
+			}
+		}
+		ImGui::End();
+	}
 }

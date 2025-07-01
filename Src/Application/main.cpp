@@ -103,7 +103,6 @@ void Application::KdBeginDraw(bool usePostProcess)
 void Application::KdPostDraw()
 {
 	// Imguiのレンダリング
-	KdDebugGUI::Instance().GuiProcess();
 
 	// BackBuffer -> 画面表示
 	KdDirect3D::Instance().WorkSwapChain()->Present(0, 0);
@@ -204,7 +203,7 @@ bool Application::Init(int w, int h)
 	//===================================================================
 	// imgui初期化
 	//===================================================================
-	KdDebugGUI::Instance().GuiInit();
+
 
 	//===================================================================
 	// シェーダー初期化
@@ -215,6 +214,10 @@ bool Application::Init(int w, int h)
 	// オーディオ初期化
 	//===================================================================
 	KdAudioManager::Instance().Init();
+
+	// 時間
+	EngineCore::Time::Init();
+	EngineCore::Time::SetTargetFPS(0);
 
 	return true;
 }
@@ -238,14 +241,13 @@ void Application::Execute()
 	// ゲームループ
 	//===================================================================
 
-	// 時間
-	m_fpsController.Init();
+
 
 	// ループ
 	while (1)
 	{
 		// 処理開始時間Get
-		m_fpsController.UpdateStartTime();
+		EngineCore::Time::FrameStart();
 
 		// ゲーム終了指定があるときはループ終了
 		if (m_endFlag)
@@ -270,8 +272,8 @@ void Application::Execute()
 
 		if (GetAsyncKeyState(VK_ESCAPE))
 		{
-//			if (MessageBoxA(m_window.GetWndHandle(), "本当にゲームを終了しますか？",
-//				"終了確認", MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2) == IDYES)
+			//			if (MessageBoxA(m_window.GetWndHandle(), "本当にゲームを終了しますか？",
+			//				"終了確認", MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2) == IDYES)
 			{
 				End();
 			}
@@ -317,7 +319,10 @@ void Application::Execute()
 		//
 		//=========================================
 
-		m_fpsController.Update();
+		std::string titleBar = "3D FPS:" + std::to_string(static_cast<int>(EngineCore::Time::GetNowFPS()));
+		SetWindowTextA(m_window.GetWndHandle(), titleBar.c_str());
+
+		EngineCore::Time::FrameEnd();
 	}
 
 	//===================================================================
@@ -336,6 +341,8 @@ void Application::Release()
 	KdAudioManager::Instance().Release();
 
 	KdDirect3D::Instance().Release();
+
+	EngineCore::Engine::Instance().Release();
 
 	// ウィンドウ削除
 	m_window.Release();

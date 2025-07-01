@@ -1,12 +1,13 @@
 ﻿#include "Engine.h"
 #include "System/Time.h"
+#include "System/TaskManager.h"
 #include "System/Logger.h"
 using namespace EngineCore;
 
 bool Engine::Init()
 {
 	Logger::Log("Engine", "Engine initialized.");
-	Time::Init();
+	TaskManager::Init();
 	return true;
 }
 
@@ -22,6 +23,10 @@ void Engine::Update()
 
 void Engine::Draw()
 {
-	Logger::Log("Engine", "Engine Draw.");
-	Logger::DrawImGui();
+//	Logger::DrawImGui();
+}
+
+void EngineCore::Engine::Release()
+{
+	TaskManager::Shutdown(TaskManager::ShutdownMode::Graceful);
 }
