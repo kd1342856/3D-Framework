@@ -23,7 +23,6 @@ void Engine::Update()
 
 void Engine::Draw()
 {
-//	Logger::DrawImGui();
 }
 
 void EngineCore::Engine::Release()

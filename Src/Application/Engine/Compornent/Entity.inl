@@ -6,7 +6,6 @@ inline void Entity::AddComponent(std::shared_ptr<Component> comp)
 	static_assert(std::is_base_of<Component, T>::value, "T must be derived from Component");
 	comp->SetOwner(shared_from_this());
 	m_components[typeid(T)] = comp;
-	comp->Init();
 }
 
 template<typename T>
