@@ -1,6 +1,6 @@
 ﻿#include "RenderComponent.h"
-#include "../Entity.h"
-#include "TransformComponent.h"
+#include "../../Entity.h"
+#include "../Trans/TransformComponent.h"
 void RenderComponent::Draw(DrawPass pass)
 {
 	auto owner = m_owner.lock();

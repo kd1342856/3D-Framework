@@ -1,5 +1,5 @@
 ﻿#include "Entity.h"
-#include "Component.h"
+#include "Component/Component.h"
 
 void Entity::Init()
 {

@@ -14,7 +14,7 @@ public:
 	void SetRotation(const Math::Vector3& rot) { m_rotation = rot; m_dirty = true; }
 	void SetScale(const Math::Vector3& scale) { m_scale = scale;  m_dirty = true; }
 
-	const Math::Vector3& GetPosition() const { return m_pos; }
+	const Math::Vector3& GetPos() const { return m_pos; }
 	const Math::Vector3& GetRotation() const { return m_rotation; }
 	const Math::Vector3& GetScale() const { return m_scale; }
 

@@ -120,3 +120,7 @@
 //
 //===============================================
 #include "Framework/KdFramework.h"
+
+#include "Application/Engine/System/Time.h"
+#include "Application/Engine/System/TaskManager.h"
+#include "Application/Engine/ImGui/Log/Logger.h"

@@ -91,14 +91,29 @@
     <Filter Include="Src\Application\Engine\System">
       <UniqueIdentifier>{8d87cd52-55c0-4ecc-95b3-7b6f4fb86a99}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Engine\Component">
-      <UniqueIdentifier>{915e0173-634c-4c7b-bff5-d11be40c999c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\Engine\Component\Components">
-      <UniqueIdentifier>{31a93f25-9aeb-4f55-bc21-3ee94be9195e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\Engine\Manager">
       <UniqueIdentifier>{86cd0b4f-952b-4d11-8563-9c1c343af848}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Engine\ImGui">
+      <UniqueIdentifier>{fc02db7b-a0c7-41ea-9128-f9388eef6f95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Engine\ImGui\Log">
+      <UniqueIdentifier>{3c4b0993-43f8-42c2-93f3-bd7d64bbc26b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Engine\Entity">
+      <UniqueIdentifier>{f1b130c7-316f-4e33-b61b-e4cf8cd83982}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Engine\Entity\Component">
+      <UniqueIdentifier>{66b2f612-2658-41bb-b20e-0d4557105a6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Engine\Entity\Component\Trans">
+      <UniqueIdentifier>{117fa0db-d55e-4111-99d3-fc120301c984}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Engine\Entity\Component\Render">
+      <UniqueIdentifier>{becd72c0-c033-4fd7-bdb1-db1e940913ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Engine\Entity\Component\Collider">
+      <UniqueIdentifier>{ca810920-1100-4c8a-84a6-b73ab44a5843}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -285,35 +300,35 @@
     <ClInclude Include="Src\Application\Engine\Engine.h">
       <Filter>Src\Application\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Engine\System\Logger.h">
-      <Filter>Src\Application\Engine\System</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\Engine\System\TaskManager.h">
       <Filter>Src\Application\Engine\System</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\Engine\System\Time.h">
       <Filter>Src\Application\Engine\System</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Engine\Compornent\Entity.h">
-      <Filter>Src\Application\Engine\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\Engine\Compornent\Component.h">
-      <Filter>Src\Application\Engine\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\Engine\Compornent\Components\TransformComponent.h">
-      <Filter>Src\Application\Engine\Component\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\Engine\Compornent\Components\RenderComponent.h">
-      <Filter>Src\Application\Engine\Component\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\Engine\Compornent\Components\ColliderComponent.h">
-      <Filter>Src\Application\Engine\Component\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\Engine\Manager\ImGuiManager.h">
-      <Filter>Src\Application\Engine\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\Engine\Manager\EntityManager.h">
       <Filter>Src\Application\Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Engine\ImGui\ImGuiManager.h">
+      <Filter>Src\Application\Engine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Engine\ImGui\Log\Logger.h">
+      <Filter>Src\Application\Engine\ImGui\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Engine\Entity\Component\Collider\ColliderComponent.h">
+      <Filter>Src\Application\Engine\Entity\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Engine\Entity\Component\Render\RenderComponent.h">
+      <Filter>Src\Application\Engine\Entity\Component\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Engine\Entity\Component\Trans\TransformComponent.h">
+      <Filter>Src\Application\Engine\Entity\Component\Trans</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Engine\Entity\Component\Component.h">
+      <Filter>Src\Application\Engine\Entity\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Engine\Entity\Entity.h">
+      <Filter>Src\Application\Engine\Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -476,26 +491,26 @@
     <ClCompile Include="Src\Application\Engine\System\Time.cpp">
       <Filter>Src\Application\Engine\System</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Engine\System\Logger.cpp">
-      <Filter>Src\Application\Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Engine\Compornent\Entity.cpp">
-      <Filter>Src\Application\Engine\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Engine\Compornent\Components\TransformComponent.cpp">
-      <Filter>Src\Application\Engine\Component\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Engine\Compornent\Components\ColliderComponent.cpp">
-      <Filter>Src\Application\Engine\Component\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Engine\Compornent\Components\RenderComponent.cpp">
-      <Filter>Src\Application\Engine\Component\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\Engine\Manager\ImGuiManager.cpp">
-      <Filter>Src\Application\Engine\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\Engine\Manager\EntityManager.cpp">
       <Filter>Src\Application\Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Engine\ImGui\ImGuiManager.cpp">
+      <Filter>Src\Application\Engine\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Engine\ImGui\Log\Logger.cpp">
+      <Filter>Src\Application\Engine\ImGui\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Engine\Entity\Component\Collider\ColliderComponent.cpp">
+      <Filter>Src\Application\Engine\Entity\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Engine\Entity\Component\Render\RenderComponent.cpp">
+      <Filter>Src\Application\Engine\Entity\Component\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Engine\Entity\Component\Trans\TransformComponent.cpp">
+      <Filter>Src\Application\Engine\Entity\Component\Trans</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Engine\Entity\Entity.cpp">
+      <Filter>Src\Application\Engine\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -511,8 +526,8 @@
     <None Include="Src\Framework\Shader\StandardShader\inc_KdStandardShader.hlsli">
       <Filter>Src\Framework\Shader\StandardShader</Filter>
     </None>
-    <None Include="Src\Application\Engine\Compornent\Entity.inl">
-      <Filter>Src\Application\Engine\Component</Filter>
+    <None Include="Src\Application\Engine\Entity\Entity.inl">
+      <Filter>Src\Application\Engine\Entity</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿#include "ColliderComponent.h"
-#include "../Entity.h"
-#include "TransformComponent.h"
+#include "../../Entity.h"
+#include "../Trans/TransformComponent.h"
 
 void ColliderComponent::Init()
 {

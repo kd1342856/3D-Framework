@@ -1,5 +1,4 @@
 ﻿#include "TaskManager.h"
-#include "Logger.h"
 using namespace EngineCore;
 
 std::vector<std::thread> TaskManager::s_workers;

@@ -1,7 +1,4 @@
 ﻿#include "Engine.h"
-#include "System/Time.h"
-#include "System/TaskManager.h"
-#include "System/Logger.h"
 using namespace EngineCore;
 
 bool Engine::Init()
@@ -18,7 +15,7 @@ void Engine::Shutdown()
 
 void Engine::Update()
 {
-	Logger::Log("Engine", "Engine update.");
+	//Logger::Log("Engine", "Engine update.");
 }
 
 void Engine::Draw()

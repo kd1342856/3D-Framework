@@ -22,8 +22,9 @@ namespace EngineCore
 			return oss.str();
 		}
 
-		static void DrawImGui();
-
+		static void DrawImGui();			//	カテゴリごとのログ表示
+		static void DrawAddLog();			//	Add()で追加されたログ描画
+		static void Add(const char* fmt, ...);
 	private:
 		static inline std::vector<LogEntry> s_logs;
 		static inline std::mutex s_mutex;
