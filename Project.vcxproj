@@ -275,7 +275,7 @@
     <ClInclude Include="..\Library\tinygltf\tiny_gltf.h" />
     <ClInclude Include="Src\Application\Engine\Compornent\Component.h" />
     <ClInclude Include="Src\Application\Engine\Compornent\Components\ColliderComponent.h" />
-    <ClInclude Include="Src\Application\Engine\Compornent\Components\RenderComponents.h" />
+    <ClInclude Include="Src\Application\Engine\Compornent\Components\RenderComponent.h" />
     <ClInclude Include="Src\Application\Engine\Compornent\Components\TransformComponent.h" />
     <ClInclude Include="Src\Application\Engine\Compornent\Entity.h" />
     <ClInclude Include="Src\Application\Engine\Engine.h" />
@@ -401,6 +401,7 @@
     <ClCompile Include="src\Framework\Window\KdWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Src\Application\Engine\Compornent\Entity.inl" />
     <None Include="Src\Framework\Shader\inc_KdCommon.hlsli" />
     <None Include="Src\Framework\Shader\PostProcessShader\inc_KdPostProcessShader.hlsli" />
     <None Include="Src\Framework\Shader\SpriteShader\inc_KdSpriteShader.hlsli" />

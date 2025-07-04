@@ -1,0 +1,27 @@
+﻿#pragma once
+#include "../Component.h"
+class RenderComponent :public Component
+{
+public:
+	RenderComponent() = default;
+	virtual ~RenderComponent() = default;
+
+	void Init()override{}
+
+	void SetColorRate(const Math::Color& color) { m_colorRate = color; }
+	void SetEmissive(const Math::Vector3& emissive) { m_emissive = emissive; }
+
+	// 描画
+	void Draw(DrawPass pass)override;
+	std::shared_ptr<KdModelWork> GetModelWork() { return m_modelWork; }
+	std::shared_ptr<KdModelData> GetModelData() { return m_modelData; }
+	void SetModel(const std::shared_ptr<KdModelData>& modelData);
+	void SetModel(const std::shared_ptr<KdModelWork>& modelWork);
+
+private:
+	
+	std::shared_ptr<KdModelData> m_modelData;
+	std::shared_ptr<KdModelWork> m_modelWork;
+	Math::Color m_colorRate = Math::Color(1, 1, 1, 1);
+	Math::Vector3 m_emissive = Math::Vector3::Zero;
+};

@@ -303,7 +303,7 @@
     <ClInclude Include="Src\Application\Engine\Compornent\Components\TransformComponent.h">
       <Filter>Src\Application\Engine\Component\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Engine\Compornent\Components\RenderComponents.h">
+    <ClInclude Include="Src\Application\Engine\Compornent\Components\RenderComponent.h">
       <Filter>Src\Application\Engine\Component\Components</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\Engine\Compornent\Components\ColliderComponent.h">
@@ -510,6 +510,9 @@
     </None>
     <None Include="Src\Framework\Shader\StandardShader\inc_KdStandardShader.hlsli">
       <Filter>Src\Framework\Shader\StandardShader</Filter>
+    </None>
+    <None Include="Src\Application\Engine\Compornent\Entity.inl">
+      <Filter>Src\Application\Engine\Component</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
