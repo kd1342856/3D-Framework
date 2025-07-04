@@ -3,6 +3,7 @@
 #include "Engine/System/Time.h"
 #include "Engine/System/TaskManager.h"
 #include "Engine/System/Logger.h"
+#include "Engine/Manager/ImGuiManager.h"
 #include "Scene/SceneManager.h"
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -103,7 +104,7 @@ void Application::KdBeginDraw(bool usePostProcess)
 void Application::KdPostDraw()
 {
 	// Imguiのレンダリング
-
+	ImGuiManager::Instance().GuiProcess();
 	// BackBuffer -> 画面表示
 	KdDirect3D::Instance().WorkSwapChain()->Present(0, 0);
 }
@@ -122,7 +123,6 @@ void Application::PreDraw()
 void Application::Draw()
 {
 	SceneManager::Instance().Draw();
-	EngineCore::Engine::Instance().Draw();
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -203,7 +203,7 @@ bool Application::Init(int w, int h)
 	//===================================================================
 	// imgui初期化
 	//===================================================================
-
+	ImGuiManager::Instance().GuiInit();
 
 	//===================================================================
 	// シェーダー初期化

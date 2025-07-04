@@ -31,11 +31,11 @@ void EngineCore::Logger::DrawImGui()
 					categories.insert(log.category);
 				}
 				//	表示を許可するカテゴリ
-				static std::set<std::string> enabledCategories = { "Error", "System", "Task" };
+				//static std::set<std::string> enabledCategories = { "Error", "System", "Task" };
 
 				for (const auto& cat : categories)
 				{
-					if (enabledCategories.count(cat) == 0) continue; // フィルタに引っかかったらスキップ
+					//if (enabledCategories.count(cat) == 0) continue; // フィルタに引っかかったらスキップ
 
 					if (ImGui::BeginTabItem(cat.c_str()))
 					{
@@ -48,10 +48,10 @@ void EngineCore::Logger::DrawImGui()
 									ImGui::TextWrapped("%s", log.message.c_str());
 								}
 							}
-							ImGui::EndTabItem();
 						}
 						ImGui::EndChild();
 					}
+					ImGui::EndTabItem();
 				}
 				ImGui::EndTabBar();
 			}
@@ -60,7 +60,8 @@ void EngineCore::Logger::DrawImGui()
 				std::lock_guard<std::mutex>lock(s_mutex);
 				s_logs.clear();
 			}
+
 		}
-		ImGui::End();
+		ImGui::EndChild();
 	}
 }
