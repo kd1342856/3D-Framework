@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "Framework/Direct3D/KdTexture.h"
 
 namespace EngineCore {
 
@@ -16,9 +17,10 @@ namespace EngineCore {
 		void Draw();         // 毎フレーム描画
 		void Release();
 
+
+		std::shared_ptr<KdTexture> m_gameViewRT;
 	private:
 		Engine(){}
-		~Engine(){}
-		
+		~Engine() { Release(); }
 	};
 }

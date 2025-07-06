@@ -3,8 +3,10 @@
 #include "../Entity/Entity.h"
 #include "../Entity/Component/Trans/TransformComponent.h"
 #include "../Entity/Component/Render/RenderComponent.h"
+#include "../Engine.h"
 void ImGuiManager::GuiInit()
 {
+
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -32,14 +34,16 @@ void ImGuiManager::GuiProcess()
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
+	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
 	//===========================================================
 	// 以下にImGui描画処理を記述
 	//==========================================================
 	
-	EngineCore::Logger::DrawImGui();
-	DrawEditorUI();
 	DrawEntityInspector();
+	DrawEditorUI();
+	GameScreen();
+	EngineCore::Logger::DrawImGui();
 	//===========================================================
 	// ここより上にImGuiの描画はする事
 	//===========================================================
@@ -59,13 +63,18 @@ void ImGuiManager::GuiRelease()
 
 void ImGuiManager::DrawEditorUI()
 {
-	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 	//	Entity List
-	ImGui::Begin("Entities");
-	if (ImGui::Button("Add Entity"))
+	ImGui::Begin("Hierarchy");
+	if (ImGui::Button("Add Object"))
 	{
 		auto newEnt = std::make_shared<Entity>();
 		// 必要なコンポーネント追加
+		auto transform = std::make_shared<TransformComponent>();
+		newEnt->AddComponent<TransformComponent>(transform);
+
+		auto render = std::make_shared<RenderComponent>();
+		newEnt->AddComponent<RenderComponent>(render);
+
 		m_entityList->push_back(newEnt);
 		EngineCore::Logger::Add("New Entity Created\n");
 	}
@@ -75,6 +84,7 @@ void ImGuiManager::DrawEditorUI()
 		if (ImGui::Selectable(label.c_str(), m_selectedEntityIndex == static_cast<int>(i)))
 		{
 			m_selectedEntityIndex = static_cast<int>(i);
+
 		}
 	}
 	ImGui::End();
@@ -105,10 +115,26 @@ void ImGuiManager::DrawEntityInspector()
 			static bool visible = true; // 仮にEntityにm_visibleがないならここを状態保存
 			if (ImGui::Checkbox("Visible", &visible))
 			{
-				// Entity側に SetVisible() があれば使う
+				ent->SetVisible(visible);
 			}
 		}
 
 		ImGui::End();
 	}
+}
+
+void ImGuiManager::GameScreen()
+{
+	ImGui::Begin("GameScreen");
+	if (EngineCore::Engine::Instance().m_gameViewRT)
+	{
+		ID3D11ShaderResourceView* srv = EngineCore::Engine::Instance().m_gameViewRT->GetSRView();
+		if (srv)
+		{
+			ImVec2 size = ImGui::GetContentRegionAvail();
+			ImGui::Image((ImTextureID)srv, size);
+		}
+	}
+	ImGui::End();
+
 }

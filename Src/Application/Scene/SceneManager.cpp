@@ -3,6 +3,7 @@
 #include "BaseScene/BaseScene.h"
 #include "GameScene/GameScene.h"
 #include "TitleScene/TitleScene.h"
+#include "../Engine/Engine.h"
 
 void SceneManager::PreUpdate()
 {
@@ -32,6 +33,7 @@ void SceneManager::PreDraw()
 
 void SceneManager::Draw()
 {
+	EngineCore::Engine::Instance().Draw();
 	m_currentScene->Draw();
 }
 

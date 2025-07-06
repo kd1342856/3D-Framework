@@ -142,6 +142,11 @@ public:
 	void SetBackBufferColor(const Math::Color& col) { m_backBafferClearColor = col; }
 	void ClearBackBuffer();
 
+	void SetRenderTarget(ID3D11RenderTargetView* rtv, ID3D11DepthStencilView* dsv) { m_pDeviceContext->OMSetRenderTargets(1, &rtv, dsv); }
+	void ClearRenderTarget(ID3D11RenderTargetView* rtv, const float* color) { m_pDeviceContext->ClearRenderTargetView(rtv, color); }
+	void ClearDepthStencil(ID3D11DepthStencilView* dsv) { m_pDeviceContext->ClearDepthStencilView(dsv, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0); }
+	void SetDefaultRenderTarget();
+
 private:
 
 	//==============================================================

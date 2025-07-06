@@ -24,50 +24,44 @@ void EngineCore::Logger::DrawImGui()
 		std::lock_guard<std::mutex> lock(s_mutex);
 		logsCopy = s_logs;
 	}
+	
+	if (ImGui::Begin("Log Window"))
 	{
-		if (ImGui::BeginChild("Log Window"))
+		if (ImGui::Button("Clear"))
 		{
-			if (ImGui::BeginTabBar("LogTabs"))
+			std::lock_guard<std::mutex>lock(s_mutex);
+			s_logs.clear();
+			return;
+		}
+		std::set<std::string> categories;
+		for (const auto& log : logsCopy)
+		{
+			categories.insert(log.category);
+		}
+		if (ImGui::BeginTabBar("LogTabs"))
+		{
+			for (const auto& cat : categories)
 			{
-				std::set<std::string> categories;
-				for (const auto& log : logsCopy)
+				if (ImGui::BeginTabItem(cat.c_str()))
 				{
-					categories.insert(log.category);
-				}
-				//	表示を許可するカテゴリ
-				//static std::set<std::string> enabledCategories = { "Error", "System", "Task" };
-
-				for (const auto& cat : categories)
-				{
-					//if (enabledCategories.count(cat) == 0) continue; // フィルタに引っかかったらスキップ
-
-					if (ImGui::BeginTabItem(cat.c_str()))
+					if (ImGui::BeginChild((cat + "_scroll").c_str(), ImVec2(0, 0), true))
 					{
-						if (ImGui::BeginChild((cat + "_scroll").c_str(), ImVec2(0, 0), true))
+						for (const auto& log : logsCopy)
 						{
-							for (const auto& log : logsCopy)
+							if (log.category == cat)
 							{
-								if (log.category == cat)
-								{
-									ImGui::TextWrapped("%s", log.message.c_str());
-								}
+								ImGui::TextWrapped("%s", log.message.c_str());
 							}
 						}
-						ImGui::EndChild();
 					}
-					ImGui::EndTabItem();
+					ImGui::EndChild();
 				}
-				ImGui::EndTabBar();
+				ImGui::EndTabItem();
 			}
-			if (ImGui::Button("Clear"))
-			{
-				std::lock_guard<std::mutex>lock(s_mutex);
-				s_logs.clear();
-			}
-
+			ImGui::EndTabBar();
 		}
-		ImGui::EndChild();
 	}
+	ImGui::End();
 }
 
 void EngineCore::Logger::DrawAddLog()

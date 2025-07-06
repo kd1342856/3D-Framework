@@ -571,3 +571,13 @@ void KdDirect3D::ClearBackBuffer()
 	m_pDeviceContext->ClearDepthStencilView(m_zBuffer->WorkDSView(),
 		D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 }
+
+void KdDirect3D::SetDefaultRenderTarget()
+{
+	if (!m_backBuffer || !m_zBuffer)
+	{
+		ID3D11RenderTargetView* rtv = m_backBuffer->WorkRTView();
+		ID3D11DepthStencilView* dsv = m_zBuffer->WorkDSView();
+		m_pDeviceContext->OMSetRenderTargets(1, &rtv, dsv);
+	}
+}

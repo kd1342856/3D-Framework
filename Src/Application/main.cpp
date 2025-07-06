@@ -338,9 +338,6 @@ void Application::Release()
 	KdAudioManager::Instance().Release();
 
 	KdDirect3D::Instance().Release();
-
-	EngineCore::Engine::Instance().Release();
-
 	// ウィンドウ削除
 	m_window.Release();
 }

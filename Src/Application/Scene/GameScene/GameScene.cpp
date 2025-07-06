@@ -4,6 +4,7 @@
 #include "../../Engine/Entity/Component/Trans/TransformComponent.h"
 #include "../../Engine/Entity/Component/Render/RenderComponent.h"
 #include "../../Engine/ImGui/ImGuiManager.h"
+using namespace EngineCore;
 void GameScene::Event()
 {
 	if (GetAsyncKeyState('T') & 0x8000)
@@ -17,6 +18,12 @@ void GameScene::Event()
 
 void GameScene::Init()
 {
+	//TaskManager::Submit([]
+	//	{
+	//		Logger::Log("Async", "Load");
+	//		std::this_thread::sleep_for(std::chrono::seconds(1)); 
+	//		Logger::Log("Async", "End");
+	//	});
 	auto player = std::make_shared<Entity>();
 	player->AddComponent<TransformComponent>(std::make_shared<TransformComponent>());
 

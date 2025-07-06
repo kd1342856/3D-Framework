@@ -5,6 +5,8 @@ class ImGuiManager
 public:
 	void GuiInit();
 	void GuiProcess();
+	void GameScreen();
+
 
 	void SetEntityList(std::vector<std::shared_ptr<Entity>>* list) { m_entityList = list; }
 

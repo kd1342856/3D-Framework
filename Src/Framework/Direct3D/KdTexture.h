@@ -31,7 +31,7 @@ public:
 	ID3D11Texture2D*					WorkResource() const;
 
 	// シェーダリソースビュー取得
-	const ID3D11ShaderResourceView*		GetSRView() const { return m_srv; }
+	ID3D11ShaderResourceView*			GetSRView() const { return m_srv; }
 	ID3D11ShaderResourceView*			WorkSRView() const { return m_srv; }	
 	// シェーダリソースビューのアドレス取得
 	const ID3D11ShaderResourceView* const*	GetSRViewAddress() const { return &m_srv; }
