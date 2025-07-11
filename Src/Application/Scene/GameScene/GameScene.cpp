@@ -1,40 +1,48 @@
 ﻿#include "GameScene.h"
 #include"../SceneManager.h"
-#include "../../Engine/Entity/Entity.h"
+#include "../../Engine/Entity/Entity/Entity.h"
 #include "../../Engine/Entity/Component/Trans/TransformComponent.h"
 #include "../../Engine/Entity/Component/Render/RenderComponent.h"
 #include "../../Engine/ImGui/ImGuiManager.h"
+#include "../../Engine/ImGui/Editor/EditorUI/EditorUI.h"
+#include "../../Engine/System/Thread/LoadedEntityQueue.h"
+#include "../../Engine/Data/ObjData.h"
 using namespace EngineCore;
 void GameScene::Event()
 {
-	if (GetAsyncKeyState('T') & 0x8000)
+	std::shared_ptr<Entity> entity;
+	while (LoadedEntityQueue::Instance().TryPop(entity))
 	{
-		SceneManager::Instance().SetNextScene
-		(
-			SceneManager::SceneType::Title
-		);
+		m_entities.push_back(entity);
+		m_objList.push_back(entity);
 	}
 }
 
 void GameScene::Init()
 {
-	//TaskManager::Submit([]
-	//	{
-	//		Logger::Log("Async", "Load");
-	//		std::this_thread::sleep_for(std::chrono::seconds(1)); 
-	//		Logger::Log("Async", "End");
-	//	});
-	auto player = std::make_shared<Entity>();
-	player->AddComponent<TransformComponent>(std::make_shared<TransformComponent>());
+	auto objData = std::make_shared<ObjectData>();
+	const std::string savePath = "Asset/Data/ObjData/ObjData/ObjData.json";
 
-	auto render = std::make_shared<RenderComponent>();
-	//render->SetModel(std::make_shared<KdModelData>(""));
-	//player->AddComponent<RenderComponent>(render);
-	//player->GetComponent<TransformComponent>().SetPos(Math::Vector3(0, 0, 0));
-	
-	m_entities.push_back(player);
-	ImGuiManager::Instance().SetEntityList(&m_entities);
-	auto entity = std::make_shared<Entity>();
-	entity->Init();
-	m_objList.push_back(entity);
+	if (std::filesystem::exists(savePath))
+	{
+		auto entityList = objData->LoadEntityList(savePath);
+		m_entities = entityList;
+	}
+	else
+	{
+		EngineCore::TaskManager::Submit([]()
+			{
+				auto entity = std::make_shared<Entity>();
+
+				//	コンポーネント
+				entity->AddComponent<TransformComponent>(std::make_shared<TransformComponent>());
+				entity->AddComponent<RenderComponent>(std::make_shared<RenderComponent>());
+				entity->Init();
+
+				LoadedEntityQueue::Instance().Push(entity);
+			});
+	}
+	//	エディタ
+	m_editor = std::make_shared<EditorUI>();
+	m_editor->SetEntityList(m_entities);
 }

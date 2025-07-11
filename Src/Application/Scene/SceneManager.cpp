@@ -33,7 +33,6 @@ void SceneManager::PreDraw()
 
 void SceneManager::Draw()
 {
-	EngineCore::Engine::Instance().Draw();
 	m_currentScene->Draw();
 }
 

@@ -1,12 +1,18 @@
 ﻿#include "ImGuiManager.h"
 #include "../../main.h"
-#include "../Entity/Entity.h"
+#include "../Entity/Entity/Entity.h"
 #include "../Entity/Component/Trans/TransformComponent.h"
 #include "../Entity/Component/Render/RenderComponent.h"
 #include "../Engine.h"
+#include "../../Scene/SceneManager.h"
+#include "../Data/ObjData.h"
+#include "Editor/EditorUI/EditorUI.h"
+#include "Editor/EditorScene/EditorScene.h"
+
 void ImGuiManager::GuiInit()
 {
-
+	m_editorUI = std::make_shared<EditorUI>();
+	m_editorScene = std::make_unique<EditorScene>();
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -22,7 +28,14 @@ void ImGuiManager::GuiInit()
 	ImFontConfig config;
 	config.MergeMode = true;
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-	io.ConfigFlags | !ImGuiConfigFlags_ViewportsEnable;
+	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+	ImGuiStyle& style = ImGui::GetStyle();
+	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	{
+		style.WindowRounding = 0.0f;
+		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+	}
+
 	io.Fonts->AddFontDefault();
 	// 日本語対応
 	io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\msgothic.ttc", 13.0f, &config, glyphRangesJapanese);
@@ -34,19 +47,31 @@ void ImGuiManager::GuiProcess()
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
-	//===========================================================
-	// 以下にImGui描画処理を記述
-	//==========================================================
-	
-	DrawEntityInspector();
-	DrawEditorUI();
-	GameScreen();
-	EngineCore::Logger::DrawImGui();
-	//===========================================================
-	// ここより上にImGuiの描画はする事
-	//===========================================================
+	if (m_editorScene->GetMode() == EditorMode::Editor)
+	{
+		ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
+		
+		//===========================================================
+		// 以下にImGui描画処理を記述
+		//==========================================================
+
+		DrawMainMenu();
+		m_editorScene->Draw();
+		if (m_editorScene->IsEditorMode())
+		{
+			GameScreen();
+			m_editorUI->DrawEditorUI();
+			m_editorUI->DrawEntityInspector();
+		}
+		//===========================================================
+		// ここより上にImGuiの描画はする事
+		//===========================================================
+	}
+	else if (m_editorScene->GetMode() == EditorMode::Game)
+	{
+		DrawGame();
+	}
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
@@ -59,68 +84,6 @@ void ImGuiManager::GuiRelease()
 	ImGui_ImplDX11_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
-}
-
-void ImGuiManager::DrawEditorUI()
-{
-	//	Entity List
-	ImGui::Begin("Hierarchy");
-	if (ImGui::Button("Add Object"))
-	{
-		auto newEnt = std::make_shared<Entity>();
-		// 必要なコンポーネント追加
-		auto transform = std::make_shared<TransformComponent>();
-		newEnt->AddComponent<TransformComponent>(transform);
-
-		auto render = std::make_shared<RenderComponent>();
-		newEnt->AddComponent<RenderComponent>(render);
-
-		m_entityList->push_back(newEnt);
-		EngineCore::Logger::Add("New Entity Created\n");
-	}
-	for (size_t i = 0; i < m_entityList->size(); ++i)
-	{
-		std::string label = "Entity " + std::to_string(i);
-		if (ImGui::Selectable(label.c_str(), m_selectedEntityIndex == static_cast<int>(i)))
-		{
-			m_selectedEntityIndex = static_cast<int>(i);
-
-		}
-	}
-	ImGui::End();
-}
-
-void ImGuiManager::DrawEntityInspector()
-{
-	//	Entity Inspector
-	if (m_selectedEntityIndex >= 0 && m_selectedEntityIndex < static_cast<int>(m_entityList->size()))
-	{
-		auto& ent = (*m_entityList)[m_selectedEntityIndex];
-		ImGui::Begin("Inspector");
-
-		//	Transform編集
-		if (ent->HasComponent<TransformComponent>())
-		{
-			auto& tf = ent->GetComponent<TransformComponent>();
-			Math::Vector3 pos = tf.GetPos();
-			Math::Vector3 rot = tf.GetRotation();
-
-			if (ImGui::DragFloat3("Position", &pos.x, 0.1f)) tf.SetPos(pos);
-			if (ImGui::DragFloat3("Rotation", &rot.x, 1.0f)) tf.SetRotation(rot);
-		}
-
-		// 表示切り替え
-		if (ent->HasComponent<RenderComponent>())
-		{
-			static bool visible = true; // 仮にEntityにm_visibleがないならここを状態保存
-			if (ImGui::Checkbox("Visible", &visible))
-			{
-				ent->SetVisible(visible);
-			}
-		}
-
-		ImGui::End();
-	}
 }
 
 void ImGuiManager::GameScreen()
@@ -136,5 +99,72 @@ void ImGuiManager::GameScreen()
 		}
 	}
 	ImGui::End();
+}
 
+void ImGuiManager::DrawMainMenu()
+{
+	if (ImGui::BeginMainMenuBar())
+	{
+		if (ImGui::BeginMenu("File"))
+		{
+			auto objData = std::make_shared<ObjectData>();
+			if (ImGui::MenuItem("Save"))
+			{
+				auto entityList = m_editorUI->GetEntityList();
+				auto objList = objData->ConvertToDataList(entityList);
+				objData->SaveObj(objList, "Asset/Data/ObjData/ObjData/ObjData.json");
+			}
+			if (ImGui::MenuItem("Load"))
+			{
+				auto newEntities = objData->LoadEntityList("Asset/Data/ObjData/ObjData/ObjData.json");
+				m_editorUI->SetEntityList(newEntities);
+			}
+			ImGui::EndMenu();
+		}
+
+		if (ImGui::BeginMenu("Mode"))
+		{
+			if (ImGui::MenuItem("Editor Mode"))
+			{
+				m_editorScene->SetMode(EditorMode::Editor);
+			}
+			if (ImGui::MenuItem("Game Mode"))
+			{
+				m_editorScene->SetMode(EditorMode::Game);
+			}
+			ImGui::EndMenu();
+		}
+	}
+	ImGui::EndMainMenuBar();
+}
+
+void ImGuiManager::DrawGame()
+{
+	if (!EngineCore::Engine::Instance().m_gameViewRT) return;
+
+	ImGuiWindowFlags flags =
+		ImGuiWindowFlags_NoTitleBar |
+		ImGuiWindowFlags_NoResize |
+		ImGuiWindowFlags_NoMove |
+		ImGuiWindowFlags_NoCollapse |
+		ImGuiWindowFlags_NoDocking |
+		ImGuiWindowFlags_NoBringToFrontOnFocus |
+		ImGuiWindowFlags_NoNavFocus |
+		ImGuiWindowFlags_NoScrollbar |
+		ImGuiWindowFlags_NoBackground;
+
+	ImVec2 vpSize = ImGui::GetMainViewport()->Size;
+
+	ImGui::SetNextWindowPos(ImVec2(0, 0));
+	ImGui::SetNextWindowSize(vpSize);
+
+	ImGui::Begin("##GameFullscreen", nullptr, flags);
+
+	ID3D11ShaderResourceView* srv = EngineCore::Engine::Instance().m_gameViewRT->GetSRView();
+	if (srv)
+	{
+		ImGui::Image((ImTextureID)srv, vpSize);
+	}
+
+	ImGui::End();
 }

@@ -1,5 +1,5 @@
 ﻿#include "RenderComponent.h"
-#include "../../Entity.h"
+#include "../../Entity/Entity.h"
 #include "../Trans/TransformComponent.h"
 void RenderComponent::Draw(DrawPass pass)
 {
@@ -9,42 +9,54 @@ void RenderComponent::Draw(DrawPass pass)
 	if (!owner->HasComponent<TransformComponent>())return;
 	const auto& transform = owner->GetComponent<TransformComponent>();
 	const Math::Matrix& world = transform.GetMatrix();
+	
+	auto& shader = KdShaderManager::Instance().m_StandardShader;
 
-	// ModelWork（動的モデル）がある場合
 	if (m_modelWork && m_modelWork->IsEnable())
 	{
-		KdShaderManager::Instance().m_StandardShader.DrawModel(*m_modelWork, world, m_colorRate, m_emissive);
-		return;
+		switch (pass) 
+		{
+		case DrawPass::Lit:
+			shader.DrawModel(*m_modelWork, world);
+			break;
+		case DrawPass::UnLit:
+		case DrawPass::Bright:
+		case DrawPass::Shadow:
+			shader.DrawModel(*m_modelWork, world);
+			break;
+		}
 	}
 
-	// ModelData（静的モデル）のみある場合（例：地形など）
 	if (m_modelData)
 	{
-		KdShaderManager::Instance().m_StandardShader.DrawModel(*m_modelData, world, m_colorRate, m_emissive);
-	}
-
-	switch (pass) {
-	case DrawPass::Lit:
-		KdShaderManager::Instance().m_StandardShader.DrawModel(*m_modelWork, world, m_colorRate, m_emissive);
-		break;
-	case DrawPass::UnLit:
-		KdShaderManager::Instance().m_StandardShader.DrawModel(*m_modelWork, world);
-		break;
-	case DrawPass::Bright:
-		KdShaderManager::Instance().m_StandardShader.DrawModel(*m_modelWork, world);
-		break;
-	case DrawPass::Shadow:
-		KdShaderManager::Instance().m_StandardShader.DrawModel(*m_modelWork, world);
-		break;
+		switch (pass)
+		{
+		case DrawPass::Lit:
+			shader.DrawModel(*m_modelWork, world);
+			break;
+		case DrawPass::UnLit:
+		case DrawPass::Bright:
+		case DrawPass::Shadow:
+			shader.DrawModel(*m_modelData, world);
+			break;
+		}
 	}
 }
+
 void RenderComponent::SetModel(const std::shared_ptr<KdModelData>& modelData)
 {
 	m_modelData = modelData;
-	if (!m_modelWork) m_modelWork = std::make_shared<KdModelWork>();
-	m_modelWork->SetModelData(m_modelData);
+	m_modelType = ModelType::Static;
+
+	if (!m_modelWork)
+	{
+		m_modelWork = std::make_shared<KdModelWork>();
+		m_modelWork->SetModelData(m_modelData);
+	}
 }
+
 void RenderComponent::SetModel(const std::shared_ptr<KdModelWork>& modelWork)
 {
 	m_modelWork = modelWork;
+	m_modelType = ModelType::Dynamic;
 }

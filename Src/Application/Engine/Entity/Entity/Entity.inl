@@ -1,5 +1,5 @@
 #pragma once
-#include "Component/Component.h"
+#include "../Component/Component.h"
 template<typename T>
 inline void Entity::AddComponent(std::shared_ptr<Component> comp)
 {

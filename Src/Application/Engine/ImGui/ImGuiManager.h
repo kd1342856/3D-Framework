@@ -1,22 +1,23 @@
 ﻿#pragma once
+#include "Editor/EditorScene/EditorScene.h"
+
 class Entity;
+class EditorUI;
 class ImGuiManager
 {
 public:
 	void GuiInit();
 	void GuiProcess();
-	void GameScreen();
-
-
-	void SetEntityList(std::vector<std::shared_ptr<Entity>>* list) { m_entityList = list; }
+	std::shared_ptr<EditorUI> m_editorUI;
+	EditorScene* GetEditorScene() { return m_editorScene.get(); }
 
 private:
 	void GuiRelease();
-	void DrawEditorUI();
-	void DrawEntityInspector();
 
-	std::vector<std::shared_ptr<Entity>>* m_entityList = nullptr;
-	int m_selectedEntityIndex = -1;
+	void GameScreen();
+	void DrawMainMenu();
+	void DrawGame();
+	std::unique_ptr<EditorScene> m_editorScene;
 private:
 	ImGuiManager() {}
 	~ImGuiManager() { GuiRelease(); }

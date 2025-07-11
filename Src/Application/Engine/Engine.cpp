@@ -1,5 +1,6 @@
 ﻿#include "Engine.h"
 #include "ImGui/ImGuiManager.h"
+#include "../Scene/SceneManager.h"
 #include <DirectXColors.h>
 using namespace EngineCore;
 
@@ -32,6 +33,7 @@ void Engine::Draw()
 	KdDirect3D::Instance().SetRenderTarget(rtv, dsv);
 	KdDirect3D::Instance().ClearRenderTarget(rtv, DirectX::Colors::CornflowerBlue);
 	KdDirect3D::Instance().ClearDepthStencil(dsv);
+	SceneManager::Instance().Draw();
 }
 
 void EngineCore::Engine::Release()

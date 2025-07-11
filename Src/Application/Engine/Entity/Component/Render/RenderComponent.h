@@ -3,6 +3,12 @@
 class RenderComponent :public Component
 {
 public:
+	enum class ModelType
+	{
+		None,
+		Static,
+		Dynamic
+	};
 	RenderComponent() = default;
 	virtual ~RenderComponent() = default;
 
@@ -20,6 +26,7 @@ public:
 
 private:
 	
+	ModelType m_modelType = ModelType::None;
 	std::shared_ptr<KdModelData> m_modelData;
 	std::shared_ptr<KdModelWork> m_modelWork;
 	Math::Color m_colorRate = Math::Color(1, 1, 1, 1);

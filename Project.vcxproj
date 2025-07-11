@@ -273,16 +273,21 @@
     <ClInclude Include="..\Library\tinygltf\stb_image.h" />
     <ClInclude Include="..\Library\tinygltf\stb_image_write.h" />
     <ClInclude Include="..\Library\tinygltf\tiny_gltf.h" />
+    <ClInclude Include="Src\Application\Engine\Data\ObjData.h" />
     <ClInclude Include="Src\Application\Engine\Engine.h" />
     <ClInclude Include="Src\Application\Engine\Entity\Component\Collider\ColliderComponent.h" />
     <ClInclude Include="Src\Application\Engine\Entity\Component\Component.h" />
     <ClInclude Include="Src\Application\Engine\Entity\Component\Render\RenderComponent.h" />
     <ClInclude Include="Src\Application\Engine\Entity\Component\Trans\TransformComponent.h" />
-    <ClInclude Include="Src\Application\Engine\Entity\Entity.h" />
+    <ClInclude Include="Src\Application\Engine\Entity\EntityManager.h" />
+    <ClInclude Include="Src\Application\Engine\Entity\Entity\Entity.h" />
+    <ClInclude Include="Src\Application\Engine\ImGui\Editor\EditorScene\EditorScene.h" />
+    <ClInclude Include="Src\Application\Engine\ImGui\Editor\EditorUI\EditorUI.h" />
     <ClInclude Include="Src\Application\Engine\ImGui\ImGuiManager.h" />
     <ClInclude Include="Src\Application\Engine\ImGui\Log\Logger.h" />
-    <ClInclude Include="Src\Application\Engine\Manager\EntityManager.h" />
     <ClInclude Include="Src\Application\Engine\System\TaskManager.h" />
+    <ClInclude Include="Src\Application\Engine\System\Thread\LoadedEntityQueue.h" />
+    <ClInclude Include="Src\Application\Engine\System\Thread\ThreadSafeQueue.h" />
     <ClInclude Include="Src\Application\Engine\System\Time.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\CameraBase.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\FPSCamera\FPSCamera.h" />
@@ -339,15 +344,20 @@
     <ClCompile Include="..\Library\imgui\imgui_stdlib.cpp" />
     <ClCompile Include="..\Library\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\Library\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="Src\Application\Engine\Data\ObjData.cpp" />
     <ClCompile Include="Src\Application\Engine\Engine.cpp" />
     <ClCompile Include="Src\Application\Engine\Entity\Component\Collider\ColliderComponent.cpp" />
     <ClCompile Include="Src\Application\Engine\Entity\Component\Render\RenderComponent.cpp" />
     <ClCompile Include="Src\Application\Engine\Entity\Component\Trans\TransformComponent.cpp" />
-    <ClCompile Include="Src\Application\Engine\Entity\Entity.cpp" />
+    <ClCompile Include="Src\Application\Engine\Entity\EntityManager.cpp" />
+    <ClCompile Include="Src\Application\Engine\Entity\Entity\Entity.cpp" />
+    <ClCompile Include="Src\Application\Engine\ImGui\Editor\EditorScene\EditorScene.cpp" />
+    <ClCompile Include="Src\Application\Engine\ImGui\Editor\EditorUI\EditorUI.cpp" />
     <ClCompile Include="Src\Application\Engine\ImGui\ImGuiManager.cpp" />
     <ClCompile Include="Src\Application\Engine\ImGui\Log\Logger.cpp" />
-    <ClCompile Include="Src\Application\Engine\Manager\EntityManager.cpp" />
     <ClCompile Include="Src\Application\Engine\System\TaskManager.cpp" />
+    <ClCompile Include="Src\Application\Engine\System\Thread\LoadedEntityQueue.cpp" />
+    <ClCompile Include="Src\Application\Engine\System\Thread\ThreadSafeQueue.cpp" />
     <ClCompile Include="Src\Application\Engine\System\Time.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\CameraBase.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\FPSCamera\FPSCamera.cpp" />
@@ -401,7 +411,7 @@
     <ClCompile Include="src\Framework\Window\KdWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Src\Application\Engine\Entity\Entity.inl" />
+    <None Include="Src\Application\Engine\Entity\Entity\Entity.inl" />
     <None Include="Src\Framework\Shader\inc_KdCommon.hlsli" />
     <None Include="Src\Framework\Shader\PostProcessShader\inc_KdPostProcessShader.hlsli" />
     <None Include="Src\Framework\Shader\SpriteShader\inc_KdSpriteShader.hlsli" />

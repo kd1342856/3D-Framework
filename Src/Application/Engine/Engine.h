@@ -17,7 +17,6 @@ namespace EngineCore {
 		void Draw();         // 毎フレーム描画
 		void Release();
 
-
 		std::shared_ptr<KdTexture> m_gameViewRT;
 	private:
 		Engine(){}

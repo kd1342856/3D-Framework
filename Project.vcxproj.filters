@@ -91,9 +91,6 @@
     <Filter Include="Src\Application\Engine\System">
       <UniqueIdentifier>{8d87cd52-55c0-4ecc-95b3-7b6f4fb86a99}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Engine\Manager">
-      <UniqueIdentifier>{86cd0b4f-952b-4d11-8563-9c1c343af848}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\Engine\ImGui">
       <UniqueIdentifier>{fc02db7b-a0c7-41ea-9128-f9388eef6f95}</UniqueIdentifier>
     </Filter>
@@ -114,6 +111,24 @@
     </Filter>
     <Filter Include="Src\Application\Engine\Entity\Component\Collider">
       <UniqueIdentifier>{ca810920-1100-4c8a-84a6-b73ab44a5843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Engine\Data">
+      <UniqueIdentifier>{71de061e-c6eb-4881-bcb1-f33a7f799f8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Engine\Entity\Entity">
+      <UniqueIdentifier>{2b91645f-d450-4736-aba6-20f22eb221b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Engine\ImGui\Editor">
+      <UniqueIdentifier>{48154666-ac4d-42e4-b00a-1ac045b8f45f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Engine\ImGui\Editor\EditorUI">
+      <UniqueIdentifier>{3467f736-4e72-4e55-abc3-f6a7ad230ff3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Engine\System\Thread">
+      <UniqueIdentifier>{80736c8d-d286-4656-ba0e-5a5cce56fb64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Engine\ImGui\Editor\EditorScene">
+      <UniqueIdentifier>{498bc359-13e9-4aba-b132-0ec40c080b4d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -306,9 +321,6 @@
     <ClInclude Include="Src\Application\Engine\System\Time.h">
       <Filter>Src\Application\Engine\System</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Engine\Manager\EntityManager.h">
-      <Filter>Src\Application\Engine\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\Engine\ImGui\ImGuiManager.h">
       <Filter>Src\Application\Engine\ImGui</Filter>
     </ClInclude>
@@ -327,8 +339,26 @@
     <ClInclude Include="Src\Application\Engine\Entity\Component\Component.h">
       <Filter>Src\Application\Engine\Entity\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Engine\Entity\Entity.h">
+    <ClInclude Include="Src\Application\Engine\Data\ObjData.h">
+      <Filter>Src\Application\Engine\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Engine\Entity\Entity\Entity.h">
+      <Filter>Src\Application\Engine\Entity\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Engine\Entity\EntityManager.h">
       <Filter>Src\Application\Engine\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Engine\ImGui\Editor\EditorUI\EditorUI.h">
+      <Filter>Src\Application\Engine\ImGui\Editor\EditorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Engine\System\Thread\ThreadSafeQueue.h">
+      <Filter>Src\Application\Engine\System\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Engine\System\Thread\LoadedEntityQueue.h">
+      <Filter>Src\Application\Engine\System\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Engine\ImGui\Editor\EditorScene\EditorScene.h">
+      <Filter>Src\Application\Engine\ImGui\Editor\EditorScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -491,9 +521,6 @@
     <ClCompile Include="Src\Application\Engine\System\Time.cpp">
       <Filter>Src\Application\Engine\System</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Engine\Manager\EntityManager.cpp">
-      <Filter>Src\Application\Engine\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\Engine\ImGui\ImGuiManager.cpp">
       <Filter>Src\Application\Engine\ImGui</Filter>
     </ClCompile>
@@ -509,8 +536,26 @@
     <ClCompile Include="Src\Application\Engine\Entity\Component\Trans\TransformComponent.cpp">
       <Filter>Src\Application\Engine\Entity\Component\Trans</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Engine\Entity\Entity.cpp">
+    <ClCompile Include="Src\Application\Engine\Data\ObjData.cpp">
+      <Filter>Src\Application\Engine\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Engine\Entity\Entity\Entity.cpp">
+      <Filter>Src\Application\Engine\Entity\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Engine\Entity\EntityManager.cpp">
       <Filter>Src\Application\Engine\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Engine\ImGui\Editor\EditorUI\EditorUI.cpp">
+      <Filter>Src\Application\Engine\ImGui\Editor\EditorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Engine\System\Thread\ThreadSafeQueue.cpp">
+      <Filter>Src\Application\Engine\System\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Engine\System\Thread\LoadedEntityQueue.cpp">
+      <Filter>Src\Application\Engine\System\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Engine\ImGui\Editor\EditorScene\EditorScene.cpp">
+      <Filter>Src\Application\Engine\ImGui\Editor\EditorScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -526,8 +571,8 @@
     <None Include="Src\Framework\Shader\StandardShader\inc_KdStandardShader.hlsli">
       <Filter>Src\Framework\Shader\StandardShader</Filter>
     </None>
-    <None Include="Src\Application\Engine\Entity\Entity.inl">
-      <Filter>Src\Application\Engine\Entity</Filter>
+    <None Include="Src\Application\Engine\Entity\Entity\Entity.inl">
+      <Filter>Src\Application\Engine\Entity\Entity</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
