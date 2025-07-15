@@ -71,7 +71,6 @@ void Application::PreUpdate()
 void Application::Update()
 {
 	EngineCore::Engine::Instance().Update();
-	SceneManager::Instance().Update();
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////

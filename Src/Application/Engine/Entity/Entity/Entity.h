@@ -2,7 +2,7 @@
 #include <typeindex>
 
 class Component;
-class Entity : public KdGameObject, public std::enable_shared_from_this<Entity>
+class Entity : public KdGameObject
 {
 public:
 	enum class VisibilityFlags :uint8_t

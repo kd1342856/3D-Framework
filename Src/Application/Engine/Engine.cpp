@@ -22,6 +22,7 @@ void Engine::Shutdown()
 
 void Engine::Update()
 {
+	SceneManager::Instance().Update();
 	//Logger::Log("Engine", "Engine update.");
 }
 

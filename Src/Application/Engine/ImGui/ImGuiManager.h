@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "Editor/EditorScene/EditorScene.h"
-
+class EditorCamera;
 class Entity;
 class EditorUI;
 class ImGuiManager
@@ -18,6 +18,7 @@ private:
 	void DrawMainMenu();
 	void DrawGame();
 	std::unique_ptr<EditorScene> m_editorScene;
+	std::shared_ptr<EditorCamera> m_editorCamera;
 private:
 	ImGuiManager() {}
 	~ImGuiManager() { GuiRelease(); }

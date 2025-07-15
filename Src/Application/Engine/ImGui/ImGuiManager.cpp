@@ -8,9 +8,11 @@
 #include "../Data/ObjData.h"
 #include "Editor/EditorUI/EditorUI.h"
 #include "Editor/EditorScene/EditorScene.h"
+#include "Editor/EditorCamera/EditorCamera.h"
 
 void ImGuiManager::GuiInit()
 {
+	m_editorCamera = std::make_shared<EditorCamera>();
 	m_editorUI = std::make_shared<EditorUI>();
 	m_editorScene = std::make_unique<EditorScene>();
 	// Setup Dear ImGui context
@@ -39,7 +41,6 @@ void ImGuiManager::GuiInit()
 	io.Fonts->AddFontDefault();
 	// 日本語対応
 	io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\msgothic.ttc", 13.0f, &config, glyphRangesJapanese);
-
 }
 
 void ImGuiManager::GuiProcess()
