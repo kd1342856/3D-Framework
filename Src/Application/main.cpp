@@ -78,7 +78,7 @@ void Application::Update()
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 void Application::PostUpdate()
 {
-	SceneManager::Instance().PostUpdate();
+	EngineCore::Engine::Instance().PostUpdate();
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -196,6 +196,8 @@ bool Application::Init(int w, int h)
 		return false;
 	}
 
+	SceneManager::Instance().Init();
+
 	//===================================================================
 	// imgui初期化
 	//===================================================================
@@ -211,7 +213,6 @@ bool Application::Init(int w, int h)
 	//===================================================================
 	KdAudioManager::Instance().Init();
 
-	SceneManager::Instance().Init();
 
 	// 時間
 	EngineCore::Time::Init();

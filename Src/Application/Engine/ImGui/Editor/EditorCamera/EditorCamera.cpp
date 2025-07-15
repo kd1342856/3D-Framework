@@ -1,5 +1,5 @@
 ﻿#include "EditorCamera.h"
-
+#include "../../../Engine.h"
 void EditorCamera::Init()
 {
 	CameraBase::Init();
@@ -10,6 +10,9 @@ void EditorCamera::Init()
 
 void EditorCamera::PostUpdate()
 {
+
+	if (!EngineCore::Engine::Instance().m_isCameraControlActive)return;
+
 	UpdateRotateByMouse();
 	m_mRotation = GetRotationMatrix();
 
@@ -26,11 +29,6 @@ void EditorCamera::PostUpdate()
 	if (GetAsyncKeyState(VK_SHIFT) & 0x8000)
 	{
 		speed *= 3.0f;
-	}
-
-	if (GetAsyncKeyState(VK_RBUTTON) & 0x8000)
-	{
-		UpdateRotateByMouse();
 	}
 	move *= speed;
 

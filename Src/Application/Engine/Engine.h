@@ -14,12 +14,15 @@ namespace EngineCore {
 		bool Init();         // 初期化
 		void Shutdown();     // 終了処理
 		void Update();       // 毎フレーム更新
+		void PostUpdate();
 		void Draw();         // 毎フレーム描画
 		void Release();
+		bool m_isCameraControlActive = false;
 
 		std::shared_ptr<KdTexture> m_gameViewRT;
 	private:
 		Engine(){}
 		~Engine() { Release(); }
+
 	};
 }

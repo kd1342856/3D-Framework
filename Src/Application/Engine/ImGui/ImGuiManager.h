@@ -6,7 +6,6 @@ class ImGuiManager
 public:
 	void GuiInit();
 	void GuiProcess();
-	//EditorScene* GetEditorScene() { return m_editorScene.get(); }
 
 private:
 	void GuiRelease();
@@ -15,6 +14,7 @@ private:
 	void GameScreen();
 	void DrawMainMenu();
 	void DrawGame();
+
 private:
 	ImGuiManager() {}
 	~ImGuiManager() { GuiRelease(); }

@@ -1,6 +1,7 @@
 ﻿#include "EditorManager.h"
 #include "EditorScene/EditorScene.h"
 #include "EditorUI/EditorUI.h"
+#include "../../../Scene/SceneManager.h"
 #include "EditorCamera/EditorCamera.h"
 
 void EditorManager::Init()
@@ -9,6 +10,7 @@ void EditorManager::Init()
 	m_ui = std::make_shared<EditorUI>();
 	m_camera = std::make_shared<EditorCamera>();
 	m_camera->Init();
+	SceneManager::Instance().AddObject(m_camera);
 }
 
 void EditorManager::Update()

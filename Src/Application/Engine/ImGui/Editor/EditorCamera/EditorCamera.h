@@ -11,4 +11,5 @@ public:
 
 private:
 	float m_moveSpeed = 0.3f;
+	bool m_isControlling = false;
 };

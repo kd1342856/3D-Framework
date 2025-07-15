@@ -93,6 +93,15 @@ void ImGuiManager::GameScreen()
 		if (srv)
 		{
 			ImVec2 size = ImGui::GetContentRegionAvail();
+
+			ImTextureID texID = (ImTextureID)srv;
+			ImGui::Image(texID, size);
+
+			bool isHovered = ImGui::IsItemHovered();
+			bool isClicked = ImGui::IsItemActive();
+
+			EngineCore::Engine::Instance().m_isCameraControlActive = (isHovered && isClicked);
+
 			ImGui::Image((ImTextureID)srv, size);
 		}
 	}

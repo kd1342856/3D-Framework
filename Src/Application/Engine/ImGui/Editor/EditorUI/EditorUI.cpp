@@ -50,13 +50,13 @@ void EditorUI::DrawEntityInspector(std::vector<std::shared_ptr<Entity>>& list)
 			if (ent->HasComponent<TransformComponent>())
 			{
 				auto& tf = ent->GetComponent<TransformComponent>();
-				Math::Vector3 pos = tf.GetPos();
-				Math::Vector3 rot = tf.GetRotation();
-				Math::Vector3 scale = tf.GetScale();
+				Math::Vector3 pos	 = tf.GetPos();
+				Math::Vector3 rot	 = tf.GetRotation();
+				Math::Vector3 scale	 = tf.GetScale();
 
-				if (ImGui::DragFloat3("Position", &pos.x, 0.1f)) tf.SetPos(pos);
-				if (ImGui::DragFloat3("Rotation", &rot.x, 1.0f)) tf.SetRotation(rot);
-				if (ImGui::DragFloat3("Scale", &scale.x, 1.0f)) tf.SetScale(scale);
+				if (ImGui::DragFloat3("Position",	&pos.x, 0.1f)) tf.SetPos(pos);
+				if (ImGui::DragFloat3("Rotation",	&rot.x, 1.0f)) tf.SetRotation(rot);
+				if (ImGui::DragFloat3("Scale",		&scale.x, 1.0f)) tf.SetScale(scale);
 			}
 		}
 

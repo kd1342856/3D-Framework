@@ -26,6 +26,11 @@ void Engine::Update()
 	//Logger::Log("Engine", "Engine update.");
 }
 
+void EngineCore::Engine::PostUpdate()
+{
+	SceneManager::Instance().PostUpdate();
+}
+
 void Engine::Draw()
 {
 	auto rtv = m_gameViewRT->WorkRTView();
