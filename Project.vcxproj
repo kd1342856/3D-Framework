@@ -281,6 +281,8 @@
     <ClInclude Include="Src\Application\Engine\Entity\Component\Trans\TransformComponent.h" />
     <ClInclude Include="Src\Application\Engine\Entity\EntityManager.h" />
     <ClInclude Include="Src\Application\Engine\Entity\Entity\Entity.h" />
+    <ClInclude Include="Src\Application\Engine\ImGui\Editor\EditorCamera\EditorCamera.h" />
+    <ClInclude Include="Src\Application\Engine\ImGui\Editor\EditorManager.h" />
     <ClInclude Include="Src\Application\Engine\ImGui\Editor\EditorScene\EditorScene.h" />
     <ClInclude Include="Src\Application\Engine\ImGui\Editor\EditorUI\EditorUI.h" />
     <ClInclude Include="Src\Application\Engine\ImGui\ImGuiManager.h" />
@@ -351,6 +353,8 @@
     <ClCompile Include="Src\Application\Engine\Entity\Component\Trans\TransformComponent.cpp" />
     <ClCompile Include="Src\Application\Engine\Entity\EntityManager.cpp" />
     <ClCompile Include="Src\Application\Engine\Entity\Entity\Entity.cpp" />
+    <ClCompile Include="Src\Application\Engine\ImGui\Editor\EditorCamera\EditorCamera.cpp" />
+    <ClCompile Include="Src\Application\Engine\ImGui\Editor\EditorManager.cpp" />
     <ClCompile Include="Src\Application\Engine\ImGui\Editor\EditorScene\EditorScene.cpp" />
     <ClCompile Include="Src\Application\Engine\ImGui\Editor\EditorUI\EditorUI.cpp" />
     <ClCompile Include="Src\Application\Engine\ImGui\ImGuiManager.cpp" />

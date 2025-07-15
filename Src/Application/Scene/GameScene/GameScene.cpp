@@ -4,7 +4,7 @@
 #include "../../Engine/Entity/Component/Trans/TransformComponent.h"
 #include "../../Engine/Entity/Component/Render/RenderComponent.h"
 #include "../../Engine/ImGui/ImGuiManager.h"
-#include "../../Engine/ImGui/Editor/EditorUI/EditorUI.h"
+#include "../../Engine/ImGui/Editor/EditorManager.h"
 #include "../../Engine/System/Thread/LoadedEntityQueue.h"
 #include "../../Engine/Data/ObjData.h"
 using namespace EngineCore;
@@ -43,6 +43,6 @@ void GameScene::Init()
 			});
 	}
 	//	エディタ
-	m_editor = std::make_shared<EditorUI>();
+	m_editor = std::make_shared<EditorManager>();
 	m_editor->SetEntityList(m_entities);
 }

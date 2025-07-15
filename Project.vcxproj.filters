@@ -130,6 +130,9 @@
     <Filter Include="Src\Application\Engine\ImGui\Editor\EditorScene">
       <UniqueIdentifier>{498bc359-13e9-4aba-b132-0ec40c080b4d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Engine\ImGui\Editor\EditorCamera">
+      <UniqueIdentifier>{3f7112cb-e739-4a42-9785-5f42e69677ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -360,6 +363,12 @@
     <ClInclude Include="Src\Application\Engine\ImGui\Editor\EditorScene\EditorScene.h">
       <Filter>Src\Application\Engine\ImGui\Editor\EditorScene</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Engine\ImGui\Editor\EditorManager.h">
+      <Filter>Src\Application\Engine\ImGui\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Engine\ImGui\Editor\EditorCamera\EditorCamera.h">
+      <Filter>Src\Application\Engine\ImGui\Editor\EditorCamera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -556,6 +565,12 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Engine\ImGui\Editor\EditorScene\EditorScene.cpp">
       <Filter>Src\Application\Engine\ImGui\Editor\EditorScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Engine\ImGui\Editor\EditorManager.cpp">
+      <Filter>Src\Application\Engine\ImGui\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Engine\ImGui\Editor\EditorCamera\EditorCamera.cpp">
+      <Filter>Src\Application\Engine\ImGui\Editor\EditorCamera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

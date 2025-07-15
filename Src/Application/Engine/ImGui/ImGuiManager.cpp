@@ -6,15 +6,14 @@
 #include "../Engine.h"
 #include "../../Scene/SceneManager.h"
 #include "../Data/ObjData.h"
-#include "Editor/EditorUI/EditorUI.h"
 #include "Editor/EditorScene/EditorScene.h"
-#include "Editor/EditorCamera/EditorCamera.h"
+#include "Editor/EditorManager.h"
 
 void ImGuiManager::GuiInit()
 {
-	m_editorCamera = std::make_shared<EditorCamera>();
-	m_editorUI = std::make_shared<EditorUI>();
-	m_editorScene = std::make_unique<EditorScene>();
+	m_editor = std::make_shared<EditorManager>();
+	m_editor->Init();
+
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -49,7 +48,7 @@ void ImGuiManager::GuiProcess()
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
-	if (m_editorScene->GetMode() == EditorMode::Editor)
+	if (m_editor->GetMode() == EditorMode::Editor)
 	{
 		ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 		
@@ -58,18 +57,16 @@ void ImGuiManager::GuiProcess()
 		//==========================================================
 
 		DrawMainMenu();
-		m_editorScene->Draw();
-		if (m_editorScene->IsEditorMode())
+		m_editor->Draw();
+		if (m_editor->IsEditorMode())
 		{
 			GameScreen();
-			m_editorUI->DrawEditorUI();
-			m_editorUI->DrawEntityInspector();
 		}
 		//===========================================================
 		// ここより上にImGuiの描画はする事
 		//===========================================================
 	}
-	else if (m_editorScene->GetMode() == EditorMode::Game)
+	else if (m_editor->GetMode() == EditorMode::Game)
 	{
 		DrawGame();
 	}
@@ -111,14 +108,14 @@ void ImGuiManager::DrawMainMenu()
 			auto objData = std::make_shared<ObjectData>();
 			if (ImGui::MenuItem("Save"))
 			{
-				auto entityList = m_editorUI->GetEntityList();
+				auto entityList = m_editor->GetEntityList();
 				auto objList = objData->ConvertToDataList(entityList);
 				objData->SaveObj(objList, "Asset/Data/ObjData/ObjData/ObjData.json");
 			}
 			if (ImGui::MenuItem("Load"))
 			{
 				auto newEntities = objData->LoadEntityList("Asset/Data/ObjData/ObjData/ObjData.json");
-				m_editorUI->SetEntityList(newEntities);
+				m_editor->SetEntityList(newEntities);
 			}
 			ImGui::EndMenu();
 		}
@@ -127,11 +124,11 @@ void ImGuiManager::DrawMainMenu()
 		{
 			if (ImGui::MenuItem("Editor Mode"))
 			{
-				m_editorScene->SetMode(EditorMode::Editor);
+				m_editor->SetMode(EditorMode::Editor);
 			}
 			if (ImGui::MenuItem("Game Mode"))
 			{
-				m_editorScene->SetMode(EditorMode::Game);
+				m_editor->SetMode(EditorMode::Game);
 			}
 			ImGui::EndMenu();
 		}

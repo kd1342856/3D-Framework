@@ -1,7 +1,9 @@
 ﻿#pragma once
+class Entity;
 class EditorScene;
 class EditorUI;
 class EditorCamera;
+enum class EditorMode;
 class EditorManager
 {
 public:
@@ -11,12 +13,14 @@ public:
 	void PostUpdate();
 	void Draw();
 
-	Math::Matrix GetCameraMatrix()const
-	{
-		return m_camera ? 
-			m_camera->GetCamera()->GetCameraViewMatrix() : 
-			Math::Matrix::Identity;
-	}
+	EditorMode GetMode() const;
+	void SetMode(EditorMode mode);
+	
+	std::vector<std::shared_ptr<Entity>>& GetEntityList();
+	void SetEntityList(const std::vector<std::shared_ptr<Entity>>& list);
+	Math::Matrix GetCameraMatrix()const;
+
+	bool IsEditorMode()const;
 
 	std::shared_ptr<EditorCamera> GetCamera()const { return m_camera; }
 	std::shared_ptr<EditorScene> GetScene()const { return m_scene; }

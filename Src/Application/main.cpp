@@ -1,7 +1,7 @@
 ﻿#include "main.h"
 #include "Engine/Engine.h"
-#include "Engine/ImGui/ImGuiManager.h"
 #include "Scene/SceneManager.h"
+#include "Engine/ImGui/ImGuiManager.h"
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 // エントリーポイント
@@ -210,6 +210,8 @@ bool Application::Init(int w, int h)
 	// オーディオ初期化
 	//===================================================================
 	KdAudioManager::Instance().Init();
+
+	SceneManager::Instance().Init();
 
 	// 時間
 	EngineCore::Time::Init();

@@ -1,24 +1,20 @@
 ﻿#pragma once
-#include "Editor/EditorScene/EditorScene.h"
-class EditorCamera;
 class Entity;
-class EditorUI;
+class EditorManager;
 class ImGuiManager
 {
 public:
 	void GuiInit();
 	void GuiProcess();
-	std::shared_ptr<EditorUI> m_editorUI;
-	EditorScene* GetEditorScene() { return m_editorScene.get(); }
+	//EditorScene* GetEditorScene() { return m_editorScene.get(); }
 
 private:
 	void GuiRelease();
+	std::shared_ptr<EditorManager> m_editor;
 
 	void GameScreen();
 	void DrawMainMenu();
 	void DrawGame();
-	std::unique_ptr<EditorScene> m_editorScene;
-	std::shared_ptr<EditorCamera> m_editorCamera;
 private:
 	ImGuiManager() {}
 	~ImGuiManager() { GuiRelease(); }

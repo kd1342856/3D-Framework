@@ -2,7 +2,16 @@
 #include "../../../Entity/Component/Trans/TransformComponent.h"
 #include "../../../Entity/Component/Render/RenderComponent.h"
 #include "../../../Entity/Entity/Entity.h"
-void EditorUI::DrawEditorUI()
+#include "../EditorManager.h"
+void EditorUI::Update(EditorManager& editor)
+{
+	auto& entityList = editor.GetEntityList();
+	
+	DrawEditorUI(entityList);
+	DrawEntityInspector(entityList);
+
+}
+void EditorUI::DrawEditorUI(std::vector<std::shared_ptr<Entity>>& list)
 {
 	//	Entity List
 	ImGui::Begin("Hierarchy");
@@ -16,10 +25,10 @@ void EditorUI::DrawEditorUI()
 		auto render = std::make_shared<RenderComponent>();
 		newEnt->AddComponent<RenderComponent>(render);
 
-		m_entityList.push_back(newEnt);
+		list.push_back(newEnt);
 		EngineCore::Logger::Add("New Entity Created\n");
 	}
-	for (size_t i = 0; i < m_entityList.size(); ++i)
+	for (size_t i = 0; i < list.size(); ++i)
 	{
 		std::string label = "Entity " + std::to_string(i);
 		if (ImGui::Selectable(label.c_str(), m_selectedEntityIndex == static_cast<int>(i)))
@@ -30,11 +39,11 @@ void EditorUI::DrawEditorUI()
 	ImGui::End();
 }
 
-void EditorUI::DrawEntityInspector()
+void EditorUI::DrawEntityInspector(std::vector<std::shared_ptr<Entity>>& list)
 {
-	if (m_selectedEntityIndex >= 0 && m_selectedEntityIndex < static_cast<int>(m_entityList.size()))
+	if (m_selectedEntityIndex >= 0 && m_selectedEntityIndex < static_cast<int>(list.size()))
 	{
-		auto ent = (m_entityList)[m_selectedEntityIndex];
+		auto ent = (list)[m_selectedEntityIndex];
 		ImGui::Begin("Inspector");
 		if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 		{//	Transform編集
