@@ -36,11 +36,7 @@ public :
 
 	// マネージャーの初期化
 	// インスタンス生成(アプリ起動)時にコンストラクタで自動実行
-	void Init()
-	{
-		// 開始シーンに切り替え
-		ChangeScene(m_currentSceneType);
-	}
+	void Init();
 private :
 
 
@@ -58,7 +54,7 @@ private :
 
 private:
 
-	SceneManager() { }
+	SceneManager() {}
 	~SceneManager() {}
 
 public:

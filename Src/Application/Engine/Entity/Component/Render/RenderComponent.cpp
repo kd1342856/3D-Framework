@@ -1,7 +1,7 @@
 ﻿#include "RenderComponent.h"
 #include "../../Entity/Entity.h"
 #include "../Trans/TransformComponent.h"
-void RenderComponent::Draw(DrawPass pass)
+void RenderComponent::Draw()
 {
 	auto owner = m_owner.lock();
 	if (!owner)return;
@@ -14,49 +14,52 @@ void RenderComponent::Draw(DrawPass pass)
 
 	if (m_modelWork && m_modelWork->IsEnable())
 	{
-		switch (pass) 
+		if (owner->IsVisible(Entity::VisibilityFlags::Lit))
 		{
-		case DrawPass::Lit:
 			shader.DrawModel(*m_modelWork, world);
-			break;
-		case DrawPass::UnLit:
-		case DrawPass::Bright:
-		case DrawPass::Shadow:
+		}
+		if (owner->IsVisible(Entity::VisibilityFlags::UnLit))
+		{
 			shader.DrawModel(*m_modelWork, world);
-			break;
+		}
+		if (owner->IsVisible(Entity::VisibilityFlags::Bright))
+		{
+			shader.DrawModel(*m_modelWork, world);
+		}
+		if (owner->IsVisible(Entity::VisibilityFlags::Shadow))
+		{
+			shader.DrawModel(*m_modelWork, world);
 		}
 	}
-
-	if (m_modelData)
+	else if (m_modelData)
 	{
-		switch (pass)
+		if (owner->IsVisible(Entity::VisibilityFlags::Lit))
 		{
-		case DrawPass::Lit:
-			shader.DrawModel(*m_modelWork, world);
-			break;
-		case DrawPass::UnLit:
-		case DrawPass::Bright:
-		case DrawPass::Shadow:
 			shader.DrawModel(*m_modelData, world);
-			break;
+		}
+		if (owner->IsVisible(Entity::VisibilityFlags::UnLit))
+		{
+			shader.DrawModel(*m_modelData, world);
+		}
+		if (owner->IsVisible(Entity::VisibilityFlags::Bright))
+		{
+			shader.DrawModel(*m_modelData, world);
+		}
+		if (owner->IsVisible(Entity::VisibilityFlags::Shadow))
+		{
+			shader.DrawModel(*m_modelData, world);
 		}
 	}
 }
 
-void RenderComponent::SetModel(const std::shared_ptr<KdModelData>& modelData)
+void RenderComponent::SetModelData(const std::string& filePath)
 {
-	m_modelData = modelData;
+	m_modelData->Load(filePath);
 	m_modelType = ModelType::Static;
-
-	if (!m_modelWork)
-	{
-		m_modelWork = std::make_shared<KdModelWork>();
-		m_modelWork->SetModelData(m_modelData);
-	}
 }
 
-void RenderComponent::SetModel(const std::shared_ptr<KdModelWork>& modelWork)
+void RenderComponent::SetModelWork(const std::string& filePath)
 {
-	m_modelWork = modelWork;
+	m_modelWork->SetModelData(filePath);
 	m_modelType = ModelType::Dynamic;
 }

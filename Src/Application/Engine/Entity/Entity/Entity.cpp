@@ -22,7 +22,7 @@ void Entity::DrawLit()
 	if (!IsVisible(VisibilityFlags::Lit))return;
 	for (auto& [type, comp] : m_components)
 	{
-		comp->Draw(Component::DrawPass::Lit);
+		comp->Draw();
 	}
 }
 
@@ -31,15 +31,7 @@ void Entity::DrawUnLit()
 	if (!IsVisible(VisibilityFlags::UnLit))return;
 	for (auto& [type, comp] : m_components)
 	{
-		comp->Draw(Component::DrawPass::UnLit);
-	}
-}
-
-void Entity::DrawEffect()
-{
-	for (auto& [type, comp] : m_components)
-	{
-		comp->Draw(Component::DrawPass::Effect);
+		comp->Draw();
 	}
 }
 
@@ -48,7 +40,7 @@ void Entity::DrawBright()
 	if (!IsVisible(VisibilityFlags::Bright))return;
 	for (auto& [type, comp] : m_components)
 	{
-		comp->Draw(Component::DrawPass::Bright);
+		comp->Draw();
 	}
 }
 
@@ -57,15 +49,15 @@ void Entity::GenerateDepthMapFromLight()
 	if (!IsVisible(VisibilityFlags::Shadow))return;
 	for (auto& [type, comp] : m_components)
 	{
-		comp->Draw(Component::DrawPass::Shadow);
+		comp->Draw();
 	}
 }
 
-void Entity::DrawSprite()
+void Entity::Draw()
 {
 	for (auto& [type, comp] : m_components)
 	{
-		comp->Draw(Component::DrawPass::Sprite);
+		comp->Draw();
 	}
 }
 

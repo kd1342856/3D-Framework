@@ -10,7 +10,6 @@ public:
 
 	void Init();
 	void Update();
-	void PostUpdate();
 	void Draw();
 
 	EditorMode GetMode() const;
@@ -18,16 +17,13 @@ public:
 	
 	std::vector<std::shared_ptr<Entity>>& GetEntityList();
 	void SetEntityList(const std::vector<std::shared_ptr<Entity>>& list);
-	Math::Matrix GetCameraMatrix()const;
 
 	bool IsEditorMode()const;
 
-	std::shared_ptr<EditorCamera> GetCamera()const { return m_camera; }
 	std::shared_ptr<EditorScene> GetScene()const { return m_scene; }
 
 private:
 	std::shared_ptr<EditorScene>	m_scene;
 	std::shared_ptr<EditorUI>		m_ui;
-	std::shared_ptr<EditorCamera>	m_camera;
 
 };

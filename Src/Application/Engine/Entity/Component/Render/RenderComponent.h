@@ -18,17 +18,17 @@ public:
 	void SetEmissive(const Math::Vector3& emissive) { m_emissive = emissive; }
 
 	// 描画
-	void Draw(DrawPass pass)override;
+	void Draw()override;
 	std::shared_ptr<KdModelWork> GetModelWork() { return m_modelWork; }
 	std::shared_ptr<KdModelData> GetModelData() { return m_modelData; }
-	void SetModel(const std::shared_ptr<KdModelData>& modelData);
-	void SetModel(const std::shared_ptr<KdModelWork>& modelWork);
+	void SetModelData(const std::string & filePath);
+	void SetModelWork(const std::string & filePath);
 
 private:
 	
 	ModelType m_modelType = ModelType::None;
-	std::shared_ptr<KdModelData> m_modelData;
-	std::shared_ptr<KdModelWork> m_modelWork;
+	std::shared_ptr<KdModelData> m_modelData = nullptr;
+	std::shared_ptr<KdModelWork> m_modelWork = nullptr;
 	Math::Color m_colorRate = Math::Color(1, 1, 1, 1);
 	Math::Vector3 m_emissive = Math::Vector3::Zero;
 };

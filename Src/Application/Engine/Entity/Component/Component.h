@@ -1,21 +1,22 @@
 ﻿#pragma once
 class Entity;
+enum class DrawPass
+{
+	Lit,
+	UnLit,
+	Bright,
+	Shadow,
+	Effect,
+	Sprite
+};
 class Component
 {
 public:
-	enum class DrawPass
-	{
-		Lit,
-		UnLit,
-		Bright,
-		Shadow,
-		Effect,
-		Sprite
-	};
+
 	virtual ~Component(){}
 	virtual void Init(){}
 	virtual void Update(){}
-	virtual void Draw(DrawPass pass){}
+	virtual void Draw(){}
 
 	void SetOwner(std::shared_ptr<Entity>owner) { m_owner = owner; }
 protected:

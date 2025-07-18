@@ -53,7 +53,21 @@ const std::list<std::shared_ptr<KdGameObject>>& SceneManager::GetObjList()
 
 void SceneManager::AddObject(const std::shared_ptr<KdGameObject>& _obj)
 {
-	m_currentScene->AddObject(_obj);
+	if (_obj)
+	{
+		m_currentScene->AddObject(_obj);
+	}
+}
+
+void SceneManager::Init()
+{
+	// 開始シーンに切り替え
+	auto baseScene = std::make_shared<BaseScene>();
+	baseScene->Init();
+	auto gameScene = std::make_shared<GameScene>();
+	gameScene->Init();
+
+	ChangeScene(m_currentSceneType);
 }
 
 void SceneManager::ChangeScene(SceneType _sceneType)

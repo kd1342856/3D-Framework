@@ -3,6 +3,7 @@
 #include "../../../Entity/Component/Render/RenderComponent.h"
 #include "../../../Entity/Entity/Entity.h"
 #include "../EditorManager.h"
+#include "../../../Entity/Entity/EntityFactory/EntityFactory.h"
 void EditorUI::Update(EditorManager& editor)
 {
 	auto& entityList = editor.GetEntityList();
@@ -15,22 +16,28 @@ void EditorUI::DrawEditorUI(std::vector<std::shared_ptr<Entity>>& list)
 {
 	//	Entity List
 	ImGui::Begin("Hierarchy");
-	if (ImGui::Button("Add Object"))
+	if (ImGui::BeginMenu("Add Object"))
 	{
-		auto newEnt = std::make_shared<Entity>();
-		// 必要なコンポーネント追加
-		auto transform = std::make_shared<TransformComponent>();
-		newEnt->AddComponent<TransformComponent>(transform);
-
-		auto render = std::make_shared<RenderComponent>();
-		newEnt->AddComponent<RenderComponent>(render);
-
-		list.push_back(newEnt);
-		EngineCore::Logger::Add("New Entity Created\n");
+		if (ImGui::MenuItem("Player"))
+		{
+			auto player = EntityFactory::CreatePlayer();
+			list.push_back(player);
+		}
+		if (ImGui::MenuItem("Enemy"))
+		{
+			auto enemy = EntityFactory::CreateEnemy();
+			list.push_back(enemy);
+		}
+		if (ImGui::MenuItem("Object"))
+		{
+			auto object = EntityFactory::CreateObject();
+			list.push_back(object);
+		}
+		ImGui::EndMenu();
 	}
 	for (size_t i = 0; i < list.size(); ++i)
 	{
-		std::string label = "Entity " + std::to_string(i);
+		std::string label = list[i]->GetName() + "##" + std::to_string(i);
 		if (ImGui::Selectable(label.c_str(), m_selectedEntityIndex == static_cast<int>(i)))
 		{
 			m_selectedEntityIndex = static_cast<int>(i);

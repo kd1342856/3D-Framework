@@ -10,7 +10,6 @@ void EditorCamera::Init()
 
 void EditorCamera::PostUpdate()
 {
-
 	if (!EngineCore::Engine::Instance().m_isCameraControlActive)return;
 
 	UpdateRotateByMouse();
@@ -32,11 +31,16 @@ void EditorCamera::PostUpdate()
 	}
 	move *= speed;
 
-	Math::Matrix rotY = GetRotationMatrix();
+	Math::Matrix rot = GetRotationMatrix();
 	Math::Vector3 forward = move;
-	forward = DirectX::XMVector3TransformCoord(forward, rotY);
+	forward = DirectX::XMVector3TransformNormal(forward, rot);
 
 	m_mLocalPos *= Math::Matrix::CreateTranslation(forward);
 
 	m_mWorld = m_mRotation * m_mLocalPos;
+}
+
+Math::Matrix EditorCamera::GetCameraMatrix() const
+{
+	return m_mWorld.Invert();
 }

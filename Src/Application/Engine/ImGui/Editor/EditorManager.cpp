@@ -8,9 +8,7 @@ void EditorManager::Init()
 {
 	m_scene = std::make_shared<EditorScene>();
 	m_ui = std::make_shared<EditorUI>();
-	m_camera = std::make_shared<EditorCamera>();
-	m_camera->Init();
-	SceneManager::Instance().AddObject(m_camera);
+
 }
 
 void EditorManager::Update()
@@ -18,19 +16,9 @@ void EditorManager::Update()
 	m_scene->Update();
 }
 
-void EditorManager::PostUpdate()
-{
-	m_camera->PostUpdate();
-}
-
 void EditorManager::Draw()
 {
-	if (!m_scene || !m_camera)return;
-	auto camera = m_camera->GetCamera();
-	if (camera)
-	{
-		camera->SetToShader();
-	}
+	if (!m_scene)return;
 	m_scene->Draw();
 	if (m_ui)
 	{
@@ -56,13 +44,10 @@ std::vector<std::shared_ptr<Entity>>& EditorManager::GetEntityList()
 
 void EditorManager::SetEntityList(const std::vector<std::shared_ptr<Entity>>& list)
 {
-	m_scene->GetEntityList() = list;
-}
-
-Math::Matrix EditorManager::GetCameraMatrix() const
-{
-	return m_camera ? m_camera->GetCamera()->GetCameraViewMatrix() :
-		Math::Matrix::Identity;
+	if (!m_scene)return;
+	auto& targetList = m_scene->GetEntityList();
+	targetList.clear();
+	targetList.insert(targetList.end(), list.begin(), list.end());
 }
 
 bool EditorManager::IsEditorMode() const

@@ -14,9 +14,18 @@ std::vector<ObjData> ObjectData::ConvertToDataList(const std::vector<std::shared
 		const auto& tf = ent->GetComponent<TransformComponent>();
 
 		ObjData data;
-		data.pos = tf.GetPos();
-		data.rot = tf.GetRotation();
-		data.scale = tf.GetScale();
+		data.pos	= tf.GetPos();
+		data.rot	= tf.GetRotation();
+		data.scale	= tf.GetScale();
+
+		data.name	= ent->GetName();
+
+		using VF		= Entity::VisibilityFlags;
+		data.isLit		= ent->IsVisible(VF::Lit);
+		data.isUnLit	= ent->IsVisible(VF::UnLit);
+		data.isBright	= ent->IsVisible(VF::Bright);
+		data.isShadow	= ent->IsVisible(VF::Shadow);
+
 
 		result.push_back(data);
 	}
@@ -72,6 +81,14 @@ std::vector<std::shared_ptr<Entity>> ObjectData::LoadEntityList(const std::strin
 		transform->SetPos(data.pos);
 		transform->SetRotation(data.rot);
 		transform->SetScale(data.scale);
+		ent->SetName(data.name);
+
+		using VF = Entity::VisibilityFlags;
+		ent->SetVisibility(VF::Lit, data.isLit);
+		ent->SetVisibility(VF::UnLit, data.isUnLit);
+		ent->SetVisibility(VF::Bright,data.isBright);
+		ent->SetVisibility(VF::Shadow,data.isShadow);
+
 		ent->AddComponent<TransformComponent>(transform);
 
 		auto render = std::make_shared<RenderComponent>();

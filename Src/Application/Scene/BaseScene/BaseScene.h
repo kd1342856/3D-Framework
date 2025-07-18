@@ -4,7 +4,7 @@ class BaseScene
 {
 public :
 
-	BaseScene() { Init(); }
+	BaseScene() {}
 	virtual ~BaseScene() {}
 
 	void PreUpdate();
@@ -25,14 +25,17 @@ public :
 	// オブジェクトリストに追加
 	void AddObject(const std::shared_ptr<KdGameObject>& _obj)
 	{
-		m_objList.push_back(_obj);
+		if (_obj)
+		{
+			m_objList.push_back(_obj);
+		}
 	}
 
+	virtual void Init();
 protected :
 
 	// 継承先シーンで必要ならオーバーライドする
 	virtual void Event();
-	virtual void Init();
 
 	// 全オブジェクトのアドレスをリストで管理
 	std::list<std::shared_ptr<KdGameObject>> m_objList;
